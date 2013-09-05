@@ -47,6 +47,8 @@ Planned features
 * 'link_dotfiles' command that will create symlinks for all the files listed in the dotfiles directory
 * Tab completion for ssh hosts in Solaris/Ubuntu
 * Single-command for SSH key distribution and profile distribution
+* Add some tricks from: http://www.linuxfromscratch.org/blfs/view/6.3/postlfs/profile.html
+* Add the history tips from: http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/
 
 Contributing
 ------------
