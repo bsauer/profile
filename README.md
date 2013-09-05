@@ -40,8 +40,6 @@ This list is not guaranteed to be comprehensive, but here are some of the major 
 * Integration with [CDArgs](http://www.skamphausen.de/cgi-bin/ska/CDargs)
 * Integration with [Autojump](http://github.com/joelthelion/autojump/)
 * Integration with [RVM](http://rvm.beginrescueend.com/)
-* Add vimrc hooks
-* Add tips from here: http://thedrearlight.com/blog/tmux-vim.html
 
 Planned features
 ----------------
@@ -51,6 +49,8 @@ Planned features
 * Single-command for SSH key distribution and profile distribution
 * Add some tricks from: http://www.linuxfromscratch.org/blfs/view/6.3/postlfs/profile.html
 * Add the history tips from: http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/
+* Add vimrc hooks
+* Add tips from here: http://thedrearlight.com/blog/tmux-vim.html
 
 Contributing
 ------------
