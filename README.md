@@ -40,6 +40,8 @@ This list is not guaranteed to be comprehensive, but here are some of the major 
 * Integration with [CDArgs](http://www.skamphausen.de/cgi-bin/ska/CDargs)
 * Integration with [Autojump](http://github.com/joelthelion/autojump/)
 * Integration with [RVM](http://rvm.beginrescueend.com/)
+* Add vimrc hooks
+* Add tips from here: http://thedrearlight.com/blog/tmux-vim.html
 
 Planned features
 ----------------
