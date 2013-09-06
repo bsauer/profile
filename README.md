@@ -51,6 +51,7 @@ Planned features
 * Add the history tips from: http://www.joelbrock.org/blog/2009/09/more-than-just-colors-my-bash-settings/
 * Add vimrc hooks
 * Add tips from here: http://thedrearlight.com/blog/tmux-vim.html
+* Add ssh keys somehow
 
 Contributing
 ------------
