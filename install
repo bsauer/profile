@@ -22,8 +22,12 @@ git clone $PROFILE_REPO $PROFILE_PATH/core
 
 if [ -f $HOME/.profile ]; then
   echo
-  echo "Moving current .profile to $PROFILE_PATH/userprofile.conf"
+  echo "Moving current $HOME/.profile to $PROFILE_PATH/userprofile.conf"
   mv $HOME/.profile $PROFILE_PATH/userprofile.conf
+if [ -l $HOME/.profile ]; then
+  echo
+  echo "Removing current $HOME/.profile link."
+  rm $HOME/.profile 
 fi
 
 ln -s $PROFILE_PATH/core/init .profile
