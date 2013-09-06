@@ -1,25 +1,34 @@
+DATE=`date +%Y%m%d%H%M%S`
 PROFILE_REPO="https://github.com/bsauer/profile.git"
-PROFILE_PATH=".profile.d"
+PROFILE_PATH="$HOME/.profile.d"
+SAVE_PROFILE_PATH="$HOME/.profile.d.${DATE}"
 
 if ! type -p git; then
-  echo "'git' command not found. Please install git first."
   echo
+  echo "'git' command not found. Please install git first."
   exit 1
 fi
 
-cd "$HOME"
+#cd "$HOME"
+
+if [ -d $PROFILE_PATH ]; then
+  echo 
+  echo "Moving current $PROFILE_PATH to $SAVE_PROFILE_PATH"
+  mv $PROFILE_PATH $SAVE_PROFILE_PATH
+fi
+
 mkdir $PROFILE_PATH
 git clone $PROFILE_REPO $PROFILE_PATH/core
 
-if [ -f .profile ]; then
+if [ -f $HOME/.profile ]; then
   echo
   echo "Moving current .profile to $PROFILE_PATH/userprofile.conf"
-  mv .profile $PROFILE_PATH/userprofile.conf
+  mv $HOME/.profile $PROFILE_PATH/userprofile.conf
 fi
 
-ln -s .profile.d/core/init .profile
+ln -s $PROFILE_PATH/core/init .profile
 
-for BLOCKING_RC in .bashrc .login .bashprofile; do
+for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
   if [ -f $BLOCKING_RC ]; then
     echo
     echo "Warning: Found existing $BLOCKING_RC which may cause .profile not to load."
