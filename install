@@ -1,7 +1,7 @@
 DATE=`date +%Y%m%d%H%M%S`
 PROFILE_REPO="https://github.com/bsauer/profile.git"
-PROFILE_PATH="$HOME/.profile.d"
-SAVE_PROFILE_PATH="$HOME/.profile.d.${DATE}"
+PROFILE_DIR="$HOME/.profile.d"
+SAVE_PROFILE_DIR="$HOME/.profile.d.${DATE}"
 
 if ! type -p git; then
   echo
@@ -11,14 +11,15 @@ fi
 
 #cd "$HOME"
 
-if [ -d $PROFILE_PATH ]; then
+if [ -d $PROFILE_DIR ]; then
   echo 
-  echo "Moving current $PROFILE_PATH to $SAVE_PROFILE_PATH"
-  mv $PROFILE_PATH $SAVE_PROFILE_PATH
+  echo "Moving current $PROFILE_DIR to $SAVE_PROFILE_DIR"
+  mv $PROFILE_DIR $SAVE_PROFILE_DIR
 fi
 
-mkdir $PROFILE_PATH
-git clone $PROFILE_REPO $PROFILE_PATH/core
+mkdir $PROFILE_DIR
+echo
+git clone $PROFILE_REPO $PROFILE_DIR/core
 
 if [ -L $HOME/.profile ]; then
   echo
@@ -26,17 +27,17 @@ if [ -L $HOME/.profile ]; then
   rm $HOME/.profile 
 elif [ -f $HOME/.profile ]; then
   echo
-  echo "Moving current $HOME/.profile to $PROFILE_PATH/userprofile.conf"
-  mv $HOME/.profile $PROFILE_PATH/userprofile.conf
+  echo "Moving current $HOME/.profile to $PROFILE_DIR/userprofile.conf"
+  mv $HOME/.profile $PROFILE_DIR/userprofile.conf
 fi
 
-ln -s $PROFILE_PATH/core/init .profile
+ln -s $PROFILE_DIR/core/init .profile
 
 for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
   if [ -f $BLOCKING_RC ]; then
     echo
     echo "Warning: Found existing $BLOCKING_RC which may cause .profile not to load."
-    echo "You may want to move this file into a $PROFILE_PATH/$BLOCKING_RC.conf file."
+    echo "You may want to move this file into a $PROFILE_DIR/$BLOCKING_RC.conf file."
   fi
 done
 
