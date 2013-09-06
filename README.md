@@ -6,7 +6,7 @@ This is the profile that I'm now using across a number of machines that I admini
 What's it look like?
 --------------------
 
-![Feature Diagram](http://img.skitch.com/20100928-ng3tdm6b54wn4g62x2syaaef5w.jpg)
+![Feature Diagram](https://raw.github.com/bsauer/profile/master/src/images/ProfileTerminal.png)
 
 Installation
 ------------
