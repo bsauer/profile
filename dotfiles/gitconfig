@@ -1,3 +1,9 @@
+[user]
+  name = Bernie Sauer
+  email = bsauer@iwindow.org
+[core]
+  autocrlf = input
+  safecrlf = true
 [alias]
   co = checkout
   ci = commit
@@ -9,6 +15,10 @@
   l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   ll = log --stat --abbrev-commit
   d = diff --color-words
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
 [web]
   browser = open
 [gui]
