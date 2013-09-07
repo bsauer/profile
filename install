@@ -22,7 +22,7 @@ git clone $PROFILE_REPO $PROFILE_DIR/core
 for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
   dotpath="${HOME}/.`basename ${dotfile}`"
   if [ -L "${dotpath}" ]; then
-    echo "Relinking ${dotpath}."
+    echo "Relinking ${dotpath}"
     rm "${dotpath}"
   elif [ -f "${dotpath}" ]; then
     echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}"
@@ -33,7 +33,7 @@ done
 
 # Repeat above for .profile
 if [ -L $HOME/.profile ]; then
-  echo "Relinking $HOME/.profile."
+  echo "Relinking $HOME/.profile"
   rm $HOME/.profile 
 elif [ -f $HOME/.profile ]; then
   echo "Moving current $HOME/.profile to $PROFILE_DIR/user_profile.conf"
