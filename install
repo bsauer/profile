@@ -34,8 +34,10 @@ for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
     echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}.conf"
     mv "${dotpath}" "$PROFILE_DIR/user_${dotfile}.conf"
   fi
+  ln -s "${PROFILE_DIR}/core/dotfiles/$(dotfile}" "${dotpath}"
 done
 
+# Repeat above for .profile
 if [ -L $HOME/.profile ]; then
   echo
   echo "Removing current $HOME/.profile link."
@@ -48,6 +50,7 @@ fi
 
 ln -s $PROFILE_DIR/core/init .profile
 
+# Check for files that may hinder our new .profile.d method
 for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
   if [ -f $BLOCKING_RC ]; then
     echo
