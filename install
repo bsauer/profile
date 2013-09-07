@@ -22,7 +22,7 @@ git clone $PROFILE_REPO $PROFILE_DIR/core
 for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
   dotpath="${HOME}/.`basename ${dotfile}`"
   if [ -L "${dotpath}" ]; then
-    echo "Removing current ${dotpath} link."
+    echo "Relinking ${dotpath}."
     rm "${dotpath}"
   elif [ -f "${dotpath}" ]; then
     echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}"
