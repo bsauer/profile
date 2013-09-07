@@ -33,7 +33,7 @@ done
 
 # Repeat above for .profile
 if [ -L $HOME/.profile ]; then
-  echo "Removing current $HOME/.profile link."
+  echo "Relinking $HOME/.profile."
   rm $HOME/.profile 
 elif [ -f $HOME/.profile ]; then
   echo "Moving current $HOME/.profile to $PROFILE_DIR/user_profile.conf"
