@@ -3,7 +3,7 @@ PROFILE_REPO="https://github.com/bsauer/profile.git"
 PROFILE_DIR="$HOME/.profile.d"
 SAVE_PROFILE_DIR="$HOME/.profile.d.${DATE}"
 
-if ! type -p git; then
+if [ ! type -p git ]; then
   echo "'git' command not found. Please install git first."
   exit 1
 fi
@@ -11,7 +11,6 @@ fi
 #cd "$HOME"
 
 if [ -d $PROFILE_DIR ]; then
-  echo 
   echo "Moving current $PROFILE_DIR to $SAVE_PROFILE_DIR"
   mv $PROFILE_DIR $SAVE_PROFILE_DIR
 fi
