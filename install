@@ -34,7 +34,7 @@ for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
     echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}.conf"
     mv "${dotpath}" "$PROFILE_DIR/user_${dotfile}.conf"
   fi
-  ln -s "${PROFILE_DIR}/core/dotfiles/$(dotfile}" "${dotpath}"
+  ln -s "${PROFILE_DIR}/core/dotfiles/${dotfile}" "${dotpath}"
 done
 
 # Repeat above for .profile
@@ -48,7 +48,7 @@ elif [ -f $HOME/.profile ]; then
   mv $HOME/.profile $PROFILE_DIR/user_profile.conf
 fi
 
-ln -s $PROFILE_DIR/core/init .profile
+ln -s "$PROFILE_DIR/core/init" .profile
 
 # Check for files that may hinder our new .profile.d method
 for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
