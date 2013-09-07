@@ -21,14 +21,29 @@ mkdir $PROFILE_DIR
 echo
 git clone $PROFILE_REPO $PROFILE_DIR/core
 
+# Check for all dotfiles, make a copy or relink
+for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
+  echo "${dotfile}"
+  dotpath="${HOME}/.`basename ${dotfile}`"
+  if [ -L "${dotpath}" ]; then
+    echo
+    echo "Removing current ${dotpath} link."
+    rm -ri "${dotpath"
+  elif [ -f "${dotpath}" ]; then
+    echo
+    echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}.conf"
+    mv "${dotpath}" "$PROFILE_DIR/user_${dotfile}.conf"
+  fi
+done
+
 if [ -L $HOME/.profile ]; then
   echo
   echo "Removing current $HOME/.profile link."
   rm $HOME/.profile 
 elif [ -f $HOME/.profile ]; then
   echo
-  echo "Moving current $HOME/.profile to $PROFILE_DIR/userprofile.conf"
-  mv $HOME/.profile $PROFILE_DIR/userprofile.conf
+  echo "Moving current $HOME/.profile to $PROFILE_DIR/user_profile.conf"
+  mv $HOME/.profile $PROFILE_DIR/user_profile.conf
 fi
 
 ln -s $PROFILE_DIR/core/init .profile
