@@ -4,7 +4,6 @@ PROFILE_DIR="$HOME/.profile.d"
 SAVE_PROFILE_DIR="$HOME/.profile.d.${DATE}"
 
 if ! type -p git; then
-  echo
   echo "'git' command not found. Please install git first."
   exit 1
 fi
@@ -18,19 +17,15 @@ if [ -d $PROFILE_DIR ]; then
 fi
 
 mkdir $PROFILE_DIR
-echo
 git clone $PROFILE_REPO $PROFILE_DIR/core
 
 # Check for all dotfiles, make a copy or relink
 for dotfile in `ls -1 ${PROFILE_DIR}/core/dotfiles`; do
-  echo "${dotfile}"
   dotpath="${HOME}/.`basename ${dotfile}`"
   if [ -L "${dotpath}" ]; then
-    echo
     echo "Removing current ${dotpath} link."
     rm "${dotpath}"
   elif [ -f "${dotpath}" ]; then
-    echo
     echo "Moving current ${dotpath} to $PROFILE_DIR/user_${dotfile}"
     mv "${dotpath}" "$PROFILE_DIR/user_${dotfile}"
   fi
@@ -39,11 +34,9 @@ done
 
 # Repeat above for .profile
 if [ -L $HOME/.profile ]; then
-  echo
   echo "Removing current $HOME/.profile link."
   rm $HOME/.profile 
 elif [ -f $HOME/.profile ]; then
-  echo
   echo "Moving current $HOME/.profile to $PROFILE_DIR/user_profile.conf"
   mv $HOME/.profile $PROFILE_DIR/user_profile.conf
 fi
@@ -53,10 +46,7 @@ ln -s "$PROFILE_DIR/core/init" .profile
 # Check for files that may hinder our new .profile.d method
 for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
   if [ -f $BLOCKING_RC ]; then
-    echo
     echo "Warning: Found existing $BLOCKING_RC which may cause .profile not to load."
-    echo "You may want to move this file into a $PROFILE_DIR/$BLOCKING_RC.conf file."
+    echo "         You may want to move this file into a $PROFILE_DIR/$BLOCKING_RC.conf file."
   fi
 done
-
-echo
