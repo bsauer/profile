@@ -110,7 +110,7 @@ endfunction
 " set cursorline
  
 "Turn on spell checking with English dictionary
- set spell
+ set nospell
  set spelllang=en
  set spellsuggest=9 "show only 9 suggestions for misspelled words
 
