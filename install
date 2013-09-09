@@ -68,3 +68,6 @@ $AUTOJUMP_DIR/autojump/install.sh --local
 rm -rf $AUTOJUMP_DIR
 echo "Autojump installed"
 cd ${CURRENT_PWD}
+
+# Install janus for vim plugin management
+curl -Lo- https://bit.ly/janus-bootstrap | bash
