@@ -3,6 +3,10 @@ PROFILE_REPO="https://github.com/bsauer/profile.git"
 PROFILE_DIR="$HOME/.profile.d"
 SAVE_PROFILE_DIR="$HOME/.profile.d.${DATE}"
 
+AUTOJUMP_REPO="https://github.com/joelthelion/autojump.git"
+AUTOJUMP_DIR="$HOME/.autojump.d"
+SAVE_AUTOJUMP_DIR="$HOME/.autojump.d.${DATE}"
+
 if ! type -p git; then
   echo "'git' command not found. Please install git first."
   exit 1
@@ -49,3 +53,14 @@ for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_pro
     echo "         You may want to move this file into a $PROFILE_DIR/$BLOCKING_RC.conf file."
   fi
 done
+
+# Install autojump
+if [ -d $AUTOJUMP_DIR ]; then
+  echo "Moving current $AUTOJUMP to $SAVE_AUTOJUMP_DIR"
+  mv $AUTOJUMP_DIR $SAVE_AUTOJUMP_DIR
+fi
+
+mkdir $AUTOJUMP_DIR
+git clone $AUTOJUMP_REPO $AUTOJUMP_DIR/autojump
+$AUTOJUMP_DIR/autojump/install.sh --local
+echo "Autojump installed"
