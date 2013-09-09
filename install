@@ -65,5 +65,6 @@ mkdir $AUTOJUMP_DIR
 git clone $AUTOJUMP_REPO $AUTOJUMP_DIR/autojump
 cd $AUTOJUMP_DIR/autojump/
 $AUTOJUMP_DIR/autojump/install.sh --local
+rm -rf $AUTOJUMP_DIR
 echo "Autojump installed"
 cd ${CURRENT_PWD}
