@@ -1,3 +1,4 @@
+CURRENT_PWD=`pwd`
 DATE=`date +%Y%m%d%H%M%S`
 PROFILE_REPO="https://github.com/bsauer/profile.git"
 PROFILE_DIR="$HOME/.profile.d"
@@ -62,5 +63,7 @@ fi
 
 mkdir $AUTOJUMP_DIR
 git clone $AUTOJUMP_REPO $AUTOJUMP_DIR/autojump
+cd $AUTOJUMP_DIR/autojump/
 $AUTOJUMP_DIR/autojump/install.sh --local
 echo "Autojump installed"
+cd ${CURRENT_PWD}
