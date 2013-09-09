@@ -1,5 +1,6 @@
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+" call pathogen#helptags()
+" call pathogen#runtime_append_all_bundles()
+execute pathogen#infect()
 
 set nocompatible
 syntax on
@@ -10,8 +11,8 @@ set number " Show line numbers
 " Pathogen ********************************************************************
 
 filetype off
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+" call pathogen#helptags()
+" call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
 " Folding *********************************************************************
