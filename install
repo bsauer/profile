@@ -69,5 +69,8 @@ rm -rf $AUTOJUMP_DIR
 echo "Autojump installed"
 cd ${CURRENT_PWD}
 
-# Install janus for vim plugin management
-curl -Lo- https://bit.ly/janus-bootstrap | bash
+# Install pathogem.vim plugin management
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+curl -Sso ~/.vim/autoload/pathogen.vim \
+    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
