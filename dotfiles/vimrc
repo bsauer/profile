@@ -1,100 +1,148 @@
-" call pathogen#helptags()
-" call pathogen#runtime_append_all_bundles()
-execute pathogen#infect()
-
+"Based on http://www.jonlee.ca/hacking-vim-the-ultimate-vimrc/
 set nocompatible
-syntax on
+set bs=2 "set backspace to be able to delete previous characters
+"Enable line numbering, taking up 6 spaces
+" set number
 
-set backspace=indent,eol,start
-set number " Show line numbers
+" Toggle paste mode with F5
+" set pastetoggle=        "pt:    useful so auto-indenting doesn't mess up code when pasting
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 
-" Pathogen ********************************************************************
 
-filetype off
-" call pathogen#helptags()
-" call pathogen#runtime_append_all_bundles()
-filetype plugin indent on
-
-" Folding *********************************************************************
-
-set foldenable
-set foldmethod=syntax
-set foldlevelstart=99
-
-" Tabs ************************************************************************
-" Use 2 spaces
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
-set expandtab
-
-" Searching *******************************************************************
-set incsearch  " incremental search, search as you type
-
-" Status Line *****************************************************************
-set showcmd
-set ruler " Show ruler
-
-"au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
-"
-autocmd BufNewFile,BufRead *.cls set filetype=java
-autocmd BufNewFile,BufRead *.trigger set filetype=java
-autocmd BufNewFile,BufRead *.page.erb let b:eruby_subtype='html'|set filetype=eruby
-autocmd BufNewFile,BufRead *.cls.erb let b:eruby_subtype='java' |set filetype=eruby
-autocmd BufNewFile,BufRead *.object.erb let b:eruby_subtype='xml' |set filetype=eruby
-
-" show trailing whitespace ***************************************************
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set list
-
-if has("gui_running")
-  set guioptions=egmrt
-  set guifont=Meslo\ LG\ M\ DZ:h12
-endif
-
-set backupdir=~/.vim/backup
-set directory=~/.vim/backup
-
-set ttymouse=xterm2
-set mouse=a
-
-" Better File Opening *********************************************************
-set wildmode=list:longest,full
-
-" Use \ as the leader *********************************************************
-let mapleader = "\\"
-nmap <silent> <leader>s :set spell!<CR>
-
-" Put the cursor at the beginning of the edit after . macro *******************
-nmap . .`[
-
-" Show syntax highlighting groups for word under cursor ***********************
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+      au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+          \| exe "normal g'\"" | endif
   endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+ 
+"Turn off word wrapping
+set wrap!
+ 
+"Turn on smart indent
+"set smartindent
+set tabstop=4 "set tab character to 4 characters
+set expandtab "turn tabs into whitespace
+set shiftwidth=4 "indent width for autoindent
+filetype indent on "indent depends on filetype
+ 
+"Shortcut to auto indent entire file
+nmap <F11> 1G=G
+imap <F11> <ESC>1G=Ga
+ 
+"Turn on incremental search with ignore case (except explicit caps)
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+ 
+"Informative status line
+set statusline=%F%m%r%h%w\ [TYPE=%Y\ %{&ff}]\ [%l/%L\ (%p%%)]
+if &term == "xterm" || &term == "vt220"
+  " Let the title stuff work even if we don't open the DISPLAY
+  set title
+  set t_ts=]2;
+  set t_fs=
+endif
+   
+ 
+"Set color scheme
+set t_Co=256
+"colorscheme desert256
+syntax enable
+ 
+"Enable indent folding
+"set foldenable
+"set fdm=indent
+ 
+"Set space to toggle a fold
+"nnoremap <space> zA
+ 
+"Hide buffer when not in window (to prevent relogin with FTP edit)
+set bufhidden=hide
+ 
+"Have 3 lines of offset (or buffer) when scrolling
+set scrolloff=3
 
-" Show whitespace *************************************************************
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set list
+"""""""""""""""
+" gVim Settings
+"""""""""""""""
+"Set the font and size
+set guifont=Lucida\ Console "Hide toolbar
+set guioptions-=T
+ 
+"Enable balloon tooltips on spelling suggestions and folds
+function! FoldSpellBalloon()
+let foldStart = foldclosed(v:beval_lnum )
+let foldEnd = foldclosedend(v:beval_lnum)
+let lines = []
+" Detect if we are in a fold
+if foldStart < 0
+" Detect if we are on a misspelled word
+let lines = spellsuggest( spellbadword(v:beval_text)[ 0 ], 5, 0 )
+else
+" we are in a fold
+let numLines = foldEnd . foldStart + 1
+" if we have too many lines in fold, show only the first 14
+" and the last 14 lines
+if ( numLines > 31 )
+let lines = getline( foldStart, foldStart + 14 )
+let lines += [ '-- Snipped ' . ( numLines - 30 ) . ' lines --' ]
+let lines += getline( foldEnd . 14, foldEnd )
+else
+"less than 30 lines, lets show all of them
+let lines = getline( foldStart, foldEnd )
+endif
+endif
+" return result
+return join( lines, has( .balloon_multiline. ) ? .\n. : . . )
+endfunction
+"set balloonexpr=FoldSpellBalloon()
+"set ballooneval
 
-" Ruby helpers ****************************************************************
-" Need to move this section to ruby.vim
+"""""""""""""""
+" Extra Options
+"""""""""""""""
+"Set line numbering to take up 5 spaces
+ set numberwidth=5 "Highlight current line
+" set cursorline
+ 
+"Turn on spell checking with English dictionary
+ set spell
+ set spelllang=en
+ set spellsuggest=9 "show only 9 suggestions for misspelled words
 
-iabbrev rdebug require 'ruby-debug'; debugger; 1
+"Turn on statusbar and make insert aware
+ function! InsertStatuslineColor(mode)
+   if a:mode == 'i'
+     hi statusline guibg=Cyan ctermfg=6 guifg=Black ctermbg=0
+   elseif a:mode == 'r'
+     hi statusline guibg=Purple ctermfg=5 guifg=Black ctermbg=0
+   else
+     hi statusline guibg=DarkRed ctermfg=1 guifg=Black ctermbg=0
+   endif
+ endfunction
 
-" Fix up grep.vim
-let Grep_Xargs_Options='-0'
+ au InsertEnter * call InsertStatuslineColor(v:insertmode)
+ au InsertLeave * hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
-" Ctags ****************************************************************
-" augroup vimctags
-"   autocmd!
-"   autocmd BufWritePost *.rb,*.erl silent!ctags -R &
-" augroup END
+" default the statusline to green when entering Vim
+ hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
-" Highlight long rows **************************************************
-highlight OverLength ctermbg=Magenta ctermfg=white guibg=#592929
-match OverLength /\%81v./
+" Formats the statusline
+ set statusline=%f                           " file name
+ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+ set statusline+=%{&ff}] "file format
+ set statusline+=%y      "filetype
+ set statusline+=%h      "help file flag
+ set statusline+=%m      "modified flag
+ set statusline+=%r      "read only flag
+
+ set statusline+=\ %=                        " align left
+ set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+ set statusline+=\ Col:%c                    " current column
+ set statusline+=\ Buf:%n                    " Buffer number
+ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
+ set laststatus=2
