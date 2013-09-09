@@ -70,7 +70,7 @@ echo "Autojump installed"
 cd ${CURRENT_PWD}
 
 # Install pathogem.vim plugin management
-mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/backup; \
 curl -Sso ~/.vim/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
