@@ -40,7 +40,7 @@ elif [ -f $HOME/.profile ]; then
   mv $HOME/.profile $PROFILE_DIR/user_profile.conf
 fi
 
-ln -s "$PROFILE_DIR/core/init" .profile
+ln -s "$PROFILE_DIR/core/init" ${HOME}/.profile
 
 # Check for files that may hinder our new .profile.d method
 for BLOCKING_RC in $HOME/.bashrc $HOME/.login $HOME/.bashprofile $HOME/.bash_profile; do
