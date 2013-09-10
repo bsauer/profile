@@ -17,4 +17,4 @@ alias ls=ls
 OLM_WARNINGS_DISABLE=1; export OLM_WARNINGS_DISABLE
 
 TERM=vt100; export TERM
-
+alias vi="/usr/bin/vim"
